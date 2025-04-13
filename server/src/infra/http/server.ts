@@ -4,7 +4,10 @@ import {
   serializerCompiler,
   validatorCompiler,
   hasZodFastifySchemaValidationErrors,
+  jsonSchemaTransform,
 } from "fastify-type-provider-zod";
+import { fastifySwagger } from "@fastify/swagger";
+import { fastifySwaggerUi } from "@fastify/swagger-ui";
 
 import { listLinksRoute } from "./routes/list-links";
 import { createLinkRoute } from "./routes/create-link";
@@ -33,6 +36,20 @@ server.setErrorHandler((error, request, response) => {
 
 // CORS configuration
 server.register(fastifyCors, { origin: "*" });
+
+// Swagger configuration
+server.register(fastifySwagger, {
+  openapi: {
+    info: {
+      title: "brev.ly",
+      version: "1.0.0",
+    },
+  },
+  transform: jsonSchemaTransform,
+});
+server.register(fastifySwaggerUi, {
+  routePrefix: "/docs",
+});
 
 // Routes
 server.register(listLinksRoute);
