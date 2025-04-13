@@ -1,8 +1,9 @@
 .DS_Store
+**/node_modules/
+**/dist/
+**/.env*
 
 # Frontend (based off of standard Vite app)
-./web/node_modules
-./web/dist
 ./web/dist-ssr
 ./web/*.local
 ./web/.DS_Store
@@ -14,6 +15,3 @@
 ./web/yarn-error.log*
 ./web/pnpm-debug.log*
 ./web/lerna-debug.log*
-
-# Backend
-./server/node_modules
