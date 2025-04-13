@@ -11,6 +11,7 @@ import { fastifySwaggerUi } from "@fastify/swagger-ui";
 
 import { listLinksRoute } from "./routes/list-links";
 import { createLinkRoute } from "./routes/create-link";
+import { deleteLinkRoute } from "./routes/delete-link";
 
 const server = fastify();
 
@@ -54,6 +55,7 @@ server.register(fastifySwaggerUi, {
 // Routes
 server.register(listLinksRoute);
 server.register(createLinkRoute);
+server.register(deleteLinkRoute);
 
 server.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
   console.log("HTTP server running!");
