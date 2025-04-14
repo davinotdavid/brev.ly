@@ -1,6 +1,6 @@
 import type { ShortLink } from "../types/link";
 
-export const BASE_URL = import.meta.env.DEV
+const BASE_URL = import.meta.env.DEV
   ? "http://localhost:3333"
   : "TODO_PROD_URL";
 

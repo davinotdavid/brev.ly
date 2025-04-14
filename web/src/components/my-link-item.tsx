@@ -2,7 +2,7 @@ import { Copy, Trash } from "@phosphor-icons/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { IconButton } from "./icon-button";
-import { BASE_URL, deleteLink } from "../api/links";
+import { deleteLink } from "../api/links";
 
 interface MyLinkItemProps {
   slug: string;
@@ -20,7 +20,7 @@ export function MyLinkItem({ slug, remoteURL, accessCount }: MyLinkItemProps) {
   });
 
   const onCopyClicked = async () => {
-    await navigator.clipboard.writeText(`${BASE_URL}/${slug}`);
+    await navigator.clipboard.writeText(`${window.location.origin}/${slug}`);
   };
 
   const onDeleteClicked = () => {
@@ -34,11 +34,11 @@ export function MyLinkItem({ slug, remoteURL, accessCount }: MyLinkItemProps) {
       <div>
         <a
           className="text-md text-blue-base"
-          href={`${BASE_URL}/${slug}`}
+          href={`${window.location.origin}/${slug}`}
           rel="noopener"
           target="_blank"
         >
-          {BASE_URL}/{slug}
+          {window.location.origin}/{slug}
         </a>
         <p className="text-sm text-gray-500">{remoteURL}</p>
       </div>
