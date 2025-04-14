@@ -12,6 +12,7 @@ import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import { listLinksRoute } from "./routes/list-links";
 import { createLinkRoute } from "./routes/create-link";
 import { deleteLinkRoute } from "./routes/delete-link";
+import { incrementAccessLinkRoute } from "./routes/increment-access-link";
 
 const server = fastify();
 
@@ -36,7 +37,10 @@ server.setErrorHandler((error, request, response) => {
 });
 
 // CORS configuration
-server.register(fastifyCors, { origin: "*" });
+server.register(fastifyCors, {
+  origin: "*",
+  methods: ["GET", "HEAD", "POST", "DELETE"],
+});
 
 // Swagger configuration
 server.register(fastifySwagger, {
@@ -56,6 +60,7 @@ server.register(fastifySwaggerUi, {
 server.register(listLinksRoute);
 server.register(createLinkRoute);
 server.register(deleteLinkRoute);
+server.register(incrementAccessLinkRoute);
 
 server.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
   console.log("HTTP server running!");
