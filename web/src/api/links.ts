@@ -25,3 +25,15 @@ export async function deleteLink(slug: string) {
 
   return response.json();
 }
+
+export async function incrementAccessLink(slug: string) {
+  const response = await fetch(`${BASE_URL}/links/${slug}/accessed`, {
+    method: "POST",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to increment link access");
+  }
+
+  return response.json();
+}
