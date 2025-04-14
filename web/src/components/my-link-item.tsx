@@ -14,8 +14,8 @@ export function MyLinkItem({ slug, remoteURL, accessCount }: MyLinkItemProps) {
   const queryClient = useQueryClient();
   const deleteLinkMutation = useMutation({
     mutationFn: deleteLink,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["links"] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["links"] });
     },
   });
 

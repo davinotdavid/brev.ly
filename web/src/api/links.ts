@@ -14,6 +14,31 @@ export async function getLinks(): Promise<ShortLink[]> {
   return response.json();
 }
 
+export async function createLink({
+  slug,
+  remoteURL,
+}: {
+  remoteURL: string;
+  slug: string;
+}): Promise<ShortLink> {
+  const response = await fetch(`${BASE_URL}/links`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      remoteURL,
+      slug,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to create link");
+  }
+
+  return response.json();
+}
+
 export async function deleteLink(slug: string) {
   const response = await fetch(`${BASE_URL}/links/${slug}`, {
     method: "DELETE",
