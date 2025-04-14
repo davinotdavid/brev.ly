@@ -37,18 +37,22 @@ export function MyLinksCard() {
     <div className="bg-gray-100 rounded-lg p-8 max-w-[580px] md:w-[580px] md:self-start">
       <div className="flex items-center justify-between mb-5">
         <h2 className="text-lg text-gray-600">Meus links</h2>
-        <IconButton Icon={Download} text="Baixar CSV" disabled />
+        <IconButton
+          Icon={Download}
+          text="Baixar CSV"
+          disabled={data?.length === 0}
+        />
       </div>
 
       <hr className="text-gray-200 h-[1px] w-full mb-4" />
 
-      {isLoading || !data ? (
-        <EmptyState />
-      ) : data.length === 0 ? (
+      {isLoading ? (
         <LoadingState />
+      ) : data?.length === 0 ? (
+        <EmptyState />
       ) : (
         <ul className="flex flex-col gap-3">
-          {data.map(({ slug, remoteURL, accessCount }) => (
+          {data?.map(({ slug, remoteURL, accessCount }) => (
             <MyLinkItem
               key={slug}
               slug={slug}
