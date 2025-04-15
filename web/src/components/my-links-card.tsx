@@ -51,7 +51,7 @@ export function MyLinksCard() {
       ) : data?.length === 0 ? (
         <EmptyState />
       ) : (
-        <ul className="flex flex-col gap-3 overflow-y-scroll max-h-[300px] sm:max-h-[450px]">
+        <ul className="flex flex-col gap-3 overflow-y-scroll scrollbar scrollbar-track-gray-100 scrollbar-thumb-blue-base scrollbar-w-3 max-h-[300px] sm:max-h-[450px] pr-1">
           {data?.map(({ slug, remoteURL, accessCount }) => (
             <MyLinkItem
               key={slug}
