@@ -1,3 +1,4 @@
+import axios from "axios";
 import type { ShortLink } from "../types/link";
 
 const BASE_URL = import.meta.env.DEV
@@ -21,26 +22,16 @@ export function createLink({
   remoteURL: string;
   slug: string;
 }): Promise<Response> {
-  return fetch(`${BASE_URL}/links`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      remoteURL,
-      slug,
-    }),
+  return axios.post(`${BASE_URL}/links`, {
+    remoteURL,
+    slug,
   });
 }
 
 export function deleteLink(slug: string) {
-  return fetch(`${BASE_URL}/links/${slug}`, {
-    method: "DELETE",
-  });
+  return axios.delete(`${BASE_URL}/links/${slug}`);
 }
 
 export function incrementAccessLink(slug: string) {
-  return fetch(`${BASE_URL}/links/${slug}/accessed`, {
-    method: "POST",
-  });
+  return axios.post(`${BASE_URL}/links/${slug}/accessed`);
 }
