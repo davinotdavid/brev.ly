@@ -14,14 +14,14 @@ export async function getLinks(): Promise<ShortLink[]> {
   return response.json();
 }
 
-export async function createLink({
+export function createLink({
   slug,
   remoteURL,
 }: {
   remoteURL: string;
   slug: string;
-}): Promise<ShortLink> {
-  const response = await fetch(`${BASE_URL}/links`, {
+}): Promise<Response> {
+  return fetch(`${BASE_URL}/links`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -31,34 +31,16 @@ export async function createLink({
       slug,
     }),
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to create link");
-  }
-
-  return response.json();
 }
 
-export async function deleteLink(slug: string) {
-  const response = await fetch(`${BASE_URL}/links/${slug}`, {
+export function deleteLink(slug: string) {
+  return fetch(`${BASE_URL}/links/${slug}`, {
     method: "DELETE",
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to delete link");
-  }
-
-  return response.json();
 }
 
-export async function incrementAccessLink(slug: string) {
-  const response = await fetch(`${BASE_URL}/links/${slug}/accessed`, {
+export function incrementAccessLink(slug: string) {
+  return fetch(`${BASE_URL}/links/${slug}/accessed`, {
     method: "POST",
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to increment link access");
-  }
-
-  return response.json();
 }

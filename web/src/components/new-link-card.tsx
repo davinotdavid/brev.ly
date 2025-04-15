@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "./button";
 import { Input } from "./input";
@@ -14,21 +14,34 @@ interface LinkForm extends HTMLFormElement {
 }
 
 export function NewLinkCard() {
-  const createLinkMutation = useMutation({ mutationFn: createLink });
+  const queryClient = useQueryClient();
+  const createLinkMutation = useMutation({
+    mutationFn: createLink,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["links"] });
+    },
+  });
 
   const handleFormSubmit = (e: React.FormEvent<LinkForm>) => {
     e.preventDefault();
 
     const { remoteURL, slug } = e.currentTarget.elements;
 
-    createLinkMutation.mutate({
-      remoteURL: remoteURL.value,
-      slug: slug.value,
-    });
+    createLinkMutation.mutate(
+      {
+        remoteURL: remoteURL.value,
+        slug: slug.value,
+      },
+      {
+        onSuccess: () => {
+          (e.target as HTMLFormElement).reset();
+        },
+      }
+    );
   };
 
   return (
-    <div className="bg-gray-100 rounded-lg p-8 max-w-[380px]">
+    <div className="bg-gray-100 rounded-lg p-8 max-w-[380px] self-start">
       <h2 className="text-lg text-gray-600 mb-5">Novo link</h2>
       <form className="flex flex-col gap-4" onSubmit={handleFormSubmit}>
         <Input

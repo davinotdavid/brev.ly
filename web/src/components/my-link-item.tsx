@@ -30,7 +30,7 @@ export function MyLinkItem({ slug, remoteURL, accessCount }: MyLinkItemProps) {
   };
 
   return (
-    <li className="flex items-center justify-between [&:not(:last-child)]:pb-4 [&:not(:last-child)]:border-b-[1px] border-gray-200">
+    <li className="flex items-center justify-between [&:not(:last-child)]:pb-4 [&:not(:last-child)]:border-b-[1px] [&:last-child]:pb-4 border-gray-200">
       <div>
         <a
           className="text-md text-blue-base"
