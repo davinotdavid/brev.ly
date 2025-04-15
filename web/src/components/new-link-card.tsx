@@ -1,8 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 import { Button } from "./button";
 import { Input } from "./input";
 import { createLink } from "../api/links";
+import { ErrorToast } from "./error-toast";
 
 interface FormElements extends HTMLFormControlsCollection {
   remoteURL: HTMLInputElement;
@@ -22,7 +24,7 @@ export function NewLinkCard() {
     },
   });
 
-  const handleFormSubmit = (e: React.FormEvent<LinkForm>) => {
+  const handleFormSubmit = async (e: React.FormEvent<LinkForm>) => {
     e.preventDefault();
 
     const { remoteURL, slug } = e.currentTarget.elements;
@@ -35,6 +37,15 @@ export function NewLinkCard() {
       {
         onSuccess: () => {
           (e.target as HTMLFormElement).reset();
+        },
+        onError: () => {
+          toast.custom((t) => (
+            <ErrorToast
+              t={t}
+              title="Erro no cadastro"
+              description="Essa URL encurtada já existe."
+            />
+          ));
         },
       }
     );

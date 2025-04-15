@@ -1,8 +1,10 @@
 import { Copy, Trash } from "@phosphor-icons/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 import { IconButton } from "./icon-button";
 import { deleteLink } from "../api/links";
+import { InfoToast } from "./info-toast";
 
 interface MyLinkItemProps {
   slug: string;
@@ -21,6 +23,14 @@ export function MyLinkItem({ slug, remoteURL, accessCount }: MyLinkItemProps) {
 
   const onCopyClicked = async () => {
     await navigator.clipboard.writeText(`${window.location.origin}/${slug}`);
+
+    toast.custom((t) => (
+      <InfoToast
+        t={t}
+        title="Link copiado com sucesso"
+        description={`O link ${slug} foi copiado para a área de transferência.`}
+      />
+    ));
   };
 
   const onDeleteClicked = () => {
