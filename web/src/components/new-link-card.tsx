@@ -59,12 +59,22 @@ export function NewLinkCard() {
           id="remoteURL"
           label="Link Original"
           placeholder="www.exemplo.com.br"
+          disabled={createLinkMutation.isPending}
         />
 
-        <Input id="slug" label="Link Encurtado" fixedString="brev.ly/" />
+        <Input
+          id="slug"
+          label="Link Encurtado"
+          fixedString="brev.ly/"
+          disabled={createLinkMutation.isPending}
+        />
 
-        <Button type="submit" className="mt-1">
-          Salvar link
+        <Button
+          type="submit"
+          className="mt-1"
+          disabled={createLinkMutation.isPending}
+        >
+          {createLinkMutation.isPending ? "Salvando..." : "Salvar link"}
         </Button>
       </form>
     </div>
