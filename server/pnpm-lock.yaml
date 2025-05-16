@@ -35,6 +35,9 @@ importers:
       postgres:
         specifier: ^3.4.5
         version: 3.4.5
+      uuidv7:
+        specifier: ^1.0.2
+        version: 1.0.2
       zod:
         specifier: ^3.24.2
         version: 3.24.2
@@ -1706,6 +1709,10 @@ packages:
 
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    hasBin: true
+
+  uuidv7@1.0.2:
+    resolution: {integrity: sha512-8JQkH4ooXnm1JCIhqTMbtmdnYEn6oKukBxHn1Ic9878jMkL7daTI7anTExfY18VRCX7tcdn5quzvCb6EWrR8PA==}
     hasBin: true
 
   vite-node@3.1.1:
@@ -3635,6 +3642,8 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   uuid@9.0.1: {}
+
+  uuidv7@1.0.2: {}
 
   vite-node@3.1.1(@types/node@22.14.1)(tsx@4.19.3)(yaml@2.7.1):
     dependencies:
