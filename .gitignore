@@ -1,7 +1,7 @@
 .DS_Store
 **/node_modules/
 **/dist/
-**/.env*
+**/.env
 
 # Frontend (based off of standard Vite app)
 ./web/dist-ssr
