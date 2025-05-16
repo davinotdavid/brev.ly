@@ -8,8 +8,8 @@ import { unwrapEither } from "@/shared/either";
 export function listLinksRoute(server: FastifyInstance) {
   server.get("/links", async () => {
     const linkResult = await getLinks({});
-    // const {  } = unwrapEither(linkResult);
+    const { links } = unwrapEither(linkResult);
 
-    // return links;
+    return links;
   });
 }
