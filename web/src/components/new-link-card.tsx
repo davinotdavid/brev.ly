@@ -52,7 +52,7 @@ export function NewLinkCard() {
   };
 
   return (
-    <div className="bg-gray-100 rounded-lg p-8 max-w-[380px] self-start">
+    <div className="bg-gray-100 rounded-lg p-8 w-full md:max-w-[380px] self-start">
       <h2 className="text-lg text-gray-600 mb-5">Novo link</h2>
       <form className="flex flex-col gap-4" onSubmit={handleFormSubmit}>
         <Input

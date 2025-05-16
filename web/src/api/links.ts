@@ -2,7 +2,7 @@ import axios from "axios";
 import type { ShortLink } from "../types/link";
 
 const BASE_URL = import.meta.env.DEV
-  ? "http://localhost:3333"
+  ? import.meta.env.VITE_BACKEND_URL
   : "TODO_PROD_URL";
 
 export async function getLinks(): Promise<ShortLink[]> {

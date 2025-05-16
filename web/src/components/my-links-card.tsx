@@ -49,7 +49,7 @@ export function MyLinksCard() {
   };
 
   return (
-    <div className="bg-gray-100 rounded-lg p-8 max-w-[580px] sm:w-[580px] md:self-start">
+    <div className="bg-gray-100 rounded-lg p-8 w-full md:w-[580px] md:self-start">
       <div className="flex items-center justify-between mb-5">
         <h2 className="text-lg text-gray-600">Meus links</h2>
         <IconButton
@@ -67,7 +67,7 @@ export function MyLinksCard() {
       ) : data?.length === 0 ? (
         <EmptyState />
       ) : (
-        <ul className="flex flex-col gap-3 overflow-y-scroll scrollbar scrollbar-track-gray-100 scrollbar-thumb-blue-base scrollbar-w-3 max-h-[300px] sm:max-h-[450px] pr-1">
+        <ul className="flex flex-col gap-3 overflow-y-scroll scrollbar scrollbar-track-gray-100 scrollbar-thumb-blue-base scrollbar-w-3 max-h-[300px] md:max-h-[450px] pr-1">
           {data?.map(({ slug, remoteURL, accessCount }) => (
             <MyLinkItem
               key={slug}
