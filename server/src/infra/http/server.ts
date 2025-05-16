@@ -13,6 +13,7 @@ import { listLinksRoute } from "./routes/list-links";
 import { createLinkRoute } from "./routes/create-link";
 import { deleteLinkRoute } from "./routes/delete-link";
 import { incrementAccessLinkRoute } from "./routes/increment-access-link";
+import { generateReportRoute } from "./routes/generate-report";
 
 const server = fastify();
 
@@ -61,6 +62,7 @@ server.register(listLinksRoute);
 server.register(createLinkRoute);
 server.register(deleteLinkRoute);
 server.register(incrementAccessLinkRoute);
+server.register(generateReportRoute);
 
 server.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
   console.log("HTTP server running!");

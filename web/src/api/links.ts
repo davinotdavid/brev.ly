@@ -35,3 +35,7 @@ export function deleteLink(slug: string) {
 export function incrementAccessLink(slug: string) {
   return axios.post(`${BASE_URL}/links/${slug}/accessed`);
 }
+
+export function generateReport() {
+  return axios.post(`${BASE_URL}/links/generate_report`)
+}

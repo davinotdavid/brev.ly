@@ -1,9 +1,10 @@
 import { Download, Link, Spinner } from "@phosphor-icons/react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { IconButton } from "./icon-button";
 import { MyLinkItem } from "./my-link-item";
-import { getLinks } from "../api/links";
+import { generateReport, getLinks } from "../api/links";
+import { downloadUrl } from "../utils/download-url";
 
 function EmptyState() {
   return (
@@ -33,6 +34,20 @@ export function MyLinksCard() {
     queryFn: getLinks,
   });
 
+  const downloadCSVMutation = useMutation({
+    mutationFn: generateReport,
+  })
+
+  const downloadCSV = () => {
+    downloadCSVMutation.mutate(undefined, {
+      onSuccess: (response) => {
+        if (response.data.report_link) {
+          downloadUrl(response.data.report_link);
+        }
+      }
+    });
+  };
+
   return (
     <div className="bg-gray-100 rounded-lg p-8 max-w-[580px] sm:w-[580px] md:self-start">
       <div className="flex items-center justify-between mb-5">
@@ -41,6 +56,7 @@ export function MyLinksCard() {
           Icon={Download}
           text="Baixar CSV"
           disabled={data?.length === 0}
+          onClick={downloadCSV}
         />
       </div>
 

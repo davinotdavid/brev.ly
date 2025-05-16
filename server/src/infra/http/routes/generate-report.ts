@@ -1,7 +1,8 @@
-import { db } from "@/infra/db";
-import { schema } from "@/infra/db/schemas";
 import { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
+
+import { generateReport } from "@/app/functions/generate-report";
+import { unwrapEither } from "@/shared/either";
 
 export const generateReportRoute: FastifyPluginAsyncZod = async (server) => {
   server.post(
@@ -16,10 +17,12 @@ export const generateReportRoute: FastifyPluginAsyncZod = async (server) => {
       },
     },
     async (_request, response) => {
-      await db.select().from(schema.links);
+      const result = await generateReport();
+
+      const { reportUrl } = unwrapEither(result);
 
       response.status(200).send({
-        report_link: "http://test.com",
+        report_link: reportUrl,
       });
     }
   );
