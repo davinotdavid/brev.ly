@@ -8,6 +8,9 @@ export function Slug() {
   const { slug } = useParams<{ slug: string }>();
   const { mutate: incrementAccessMutation } = useMutation({
     mutationFn: incrementAccessLink,
+    onSuccess: (response) => {
+      window.location.replace(response.data.remote_url)
+    }
   });
 
   useEffect(() => {
