@@ -8,6 +8,7 @@ import {
 } from "fastify-type-provider-zod";
 import { fastifySwagger } from "@fastify/swagger";
 import { fastifySwaggerUi } from "@fastify/swagger-ui";
+import { env } from "@/env";
 
 import { listLinksRoute } from "./routes/list-links";
 import { createLinkRoute } from "./routes/create-link";
@@ -64,6 +65,6 @@ server.register(deleteLinkRoute);
 server.register(incrementAccessLinkRoute);
 server.register(generateReportRoute);
 
-server.listen({ port: 3333, host: "0.0.0.0" }).then(() => {
-  console.log("HTTP server running!");
+server.listen({ port: env.PORT, host: "0.0.0.0" }).then(() => {
+  console.log(`HTTP server running on port ${env.PORT}! `);
 });
