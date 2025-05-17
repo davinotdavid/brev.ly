@@ -1,16 +1,18 @@
-import { useMutation } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 import { incrementAccessLink } from "../api/links";
 
 export function Slug() {
+  const [remoteURL, setRemoteURL] = useState("");
   const { slug } = useParams<{ slug: string }>();
   const { mutate: incrementAccessMutation } = useMutation({
     mutationFn: incrementAccessLink,
     onSuccess: (response) => {
-      window.location.replace(response.data.remote_url)
-    }
+      setRemoteURL(response.data.remote_url);
+      window.location.replace(response.data.remote_url);
+    },
   });
 
   useEffect(() => {
@@ -30,7 +32,7 @@ export function Slug() {
         <p className="text-md text-gray-500">
           Não foi redirecionado?{" "}
           <a
-            href="#"
+            href={remoteURL}
             rel="noopener"
             target="_blank"
             className="text-blue-base underline"
