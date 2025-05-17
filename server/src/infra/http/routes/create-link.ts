@@ -1,8 +1,8 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
 
-import { db } from "@/infra/db";
-import { schema } from "@/infra/db/schemas";
+import { createLink } from "@/app/functions/create-link";
+import { isRight, unwrapEither } from "@/shared/either";
 
 export const createLinkRoute: FastifyPluginAsyncZod = async (server) => {
   server.post(
@@ -11,7 +11,7 @@ export const createLinkRoute: FastifyPluginAsyncZod = async (server) => {
       schema: {
         summary: "Create a short link",
         body: z.object({
-          remoteURL: z.string(),
+          remoteURL: z.string().url(),
           slug: z.string(),
         }),
         response: {
@@ -31,12 +31,20 @@ export const createLinkRoute: FastifyPluginAsyncZod = async (server) => {
     async (request, response) => {
       const { remoteURL, slug } = request.body;
 
-      await db.insert(schema.links).values({
-        slug,
-        remoteURL,
-      });
+      const result = await createLink({ remoteURL, slug });
 
-      return response.status(201).send();
+      if (isRight(result)) {
+        return response.status(201).send();
+      }
+
+      const error = unwrapEither(result)
+
+      switch (error.constructor.name) {
+        case 'SlugAlreadyExists':
+          return response.status(400).send({ message: error.message })
+        default:
+          return response.status(400).send({ message: 'Uncaught internal server error.' })
+      }
     }
   );
 };
